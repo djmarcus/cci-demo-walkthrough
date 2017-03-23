@@ -35,3 +35,5 @@ jobs:
       - store_artifacts:
           path: test-reports/
           destination: trl
+      - store_test_results:
+          path: test-reports/
