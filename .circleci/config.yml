@@ -18,4 +18,4 @@ jobs:
       - checkout
       - run: 
           name: Install Dependencies
-          command: pip install -r requirements.dev.txt
+          command: pip install -r requirements/dev.txt
