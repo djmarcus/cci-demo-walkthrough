@@ -16,6 +16,19 @@ jobs:
       - image: selenium/standalone-chrome:3.1.0
     steps:
       - checkout
+      - restore_cache:
+          key: projectname-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
       - run: 
           name: Install Dependencies
           command: pip install -r requirements/dev.txt
+      - run:
+          name: Locate site packages
+          command: python -c "import site; print(site.getsitepackages())"
+      - save_cache:
+          key: projectname-{{ .Branch }}-{{ checksum "requirements/dev.txt" {% raw %}}}
+          paths:
+            - "~/.cache/pip"
+            - "/usr/local/lib/python3.6/site-packages"
+      - run:
+          name: Run Tests
+          command: python manage.py test
